@@ -11,7 +11,7 @@ from DirectedFleury import DirectedFleury
 # adjustable
 density = [i/10 for i in range(1, 10)]
 nodes = [i for i in range(10, 21)]
-n_tries = 10
+n_tries = 3
 
 
 def create_adjacency_matrix(class_, n, d):
@@ -22,7 +22,7 @@ def create_adjacency_matrix(class_, n, d):
     G = [[0 for _ in range(n)] for _ in range(n)]
 
     for i in range(n):
-        for j in range(n):
+        for j in range(i+1, n):
             if i == j:
                 continue
             if random() < d:
@@ -45,7 +45,7 @@ def create_graph_matrix(class_, n, d):
     lb = [[] for _ in range(n)]
 
     for i in range(n):
-        for j in range(n):
+        for j in range(i+1, n):
             if i == j:
                 continue
             if random() < d:
