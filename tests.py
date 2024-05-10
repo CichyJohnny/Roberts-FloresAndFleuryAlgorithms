@@ -1,5 +1,5 @@
-from random import random
-from time import perf_counter
+from random import random, seed
+from time import perf_counter, time
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -9,10 +9,11 @@ from UndirectedFleury import UndirectedFleury
 from DirectedFleury import DirectedFleury
 
 # adjustable
+max_nodes = 20
 density = [i/10 for i in range(1, 10)]
-nodes = [i for i in range(10, 21)]
-n_tries = 3
-
+nodes = [i for i in range(10, max_nodes+1)]
+n_tries = 1
+seed(time())
 
 def create_adjacency_matrix(class_, n, d):
     obj = class_()

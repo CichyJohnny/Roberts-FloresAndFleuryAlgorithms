@@ -89,20 +89,20 @@ class DirectedFleury:
                         else:
                             self.gm[i][j] = -(lb[i][k] + lb[i][k + 1])
 
-    def __eulerian(self, v, start):
+    def __eulerian(self, v):
         for i in range(self.v):
             if 0 <= self.gm[v][i] <= self.v:
                 self.gm[v][i] = -1
                 self.gm[i][v] = -1
 
-                self.__eulerian(i, start)
+                self.__eulerian(i)
 
         self.path.append(v)
 
     def find(self):
         start = 0
 
-        self.__eulerian(start, start)
+        self.__eulerian(start)
         path = self.path[::-1]
 
         if path[0] == path[-1] and len(path) == self.e + 1:
