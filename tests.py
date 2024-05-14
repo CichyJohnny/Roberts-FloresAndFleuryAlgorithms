@@ -12,8 +12,9 @@ from DirectedFleury import DirectedFleury
 max_nodes = 20
 density = [i/10 for i in range(1, 10)]
 nodes = [i for i in range(10, max_nodes+1)]
-n_tries = 1
+n_tries = 3
 seed(time())
+
 
 def create_adjacency_matrix(class_, n, d):
     obj = class_()
