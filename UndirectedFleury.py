@@ -27,26 +27,34 @@ class UndirectedFleury:
                 self.am[a][b] = 1
                 self.am[b][a] = 1
 
-    def __eulerian(self, v):
+    def __is_eulerian(self):
+        for i in range(self.v):
+            if sum(self.am[i]) % 2 != 0:
+                return False
+
+        return True
+
+    def __dfs_eulerian(self, v):
         for i in range(self.v):
             if self.am[v][i] == 1:
                 self.am[v][i] = 0
                 self.am[i][v] = 0
 
-                self.__eulerian(i)
+                self.__dfs_eulerian(i)
 
         self.path.append(v)
 
     def find(self):
         start = 0
 
-        self.__eulerian(start)
-        path = self.path[::-1]
+        if self.__is_eulerian():
+            self.__dfs_eulerian(start)
+            path = self.path[::-1]
 
-        if path[0] == path[-1] and len(path) == self.e + 1:
             return True, path
         else:
-            return False, path
+            return False, []
+
 
 
 if __name__ == "__main__":

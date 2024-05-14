@@ -77,9 +77,9 @@ class DirectedFleury:
                 for k in range(num_lp):
                     if j == lp[i][k]:
                         if k == num_lp - 1:
-                            self.gm[i][j] = lp[i][k] + self.e
+                            self.gm[i][j] = lp[i][k] + self.v
                         else:
-                            self.gm[i][j] = lp[i][k + 1] + self.e
+                            self.gm[i][j] = lp[i][k + 1] + self.v
 
             for j in range(self.v):
                 for k in range(num_lb):
@@ -89,26 +89,41 @@ class DirectedFleury:
                         else:
                             self.gm[i][j] = -(lb[i][k] + lb[i][k + 1])
 
-    def __eulerian(self, v):
+    def __is_eulerian(self):
         for i in range(self.v):
-            if 0 <= self.gm[v][i] <= self.v:
+            in_ = 0
+            out_ = 0
+            for j in range(self.v):
+                if 0 <= self.gm[i][j] < self.v:
+                    out_ += 1
+                elif self.v <= self.gm[i][j] <= 2 * self.v:
+                    in_ += 1
+
+            if in_ != out_:
+                return False
+
+        return True
+
+    def __dfs_eulerian(self, v):
+        for i in range(self.v):
+            if 0 <= self.gm[v][i] < self.v:
                 self.gm[v][i] = -1
                 self.gm[i][v] = -1
 
-                self.__eulerian(i)
+                self.__dfs_eulerian(i)
 
         self.path.append(v)
 
     def find(self):
         start = 0
 
-        self.__eulerian(start)
-        path = self.path[::-1]
+        if self.__is_eulerian():
+            self.__dfs_eulerian(start)
+            path = self.path[::-1]
 
-        if path[0] == path[-1] and len(path) == self.e + 1:
             return True, path
         else:
-            return False, path
+            return False, []
 
 
 if __name__ == "__main__":
