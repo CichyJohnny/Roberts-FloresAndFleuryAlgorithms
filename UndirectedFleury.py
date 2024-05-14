@@ -56,7 +56,6 @@ class UndirectedFleury:
             return False, []
 
 
-
 if __name__ == "__main__":
     f = UndirectedFleury()
 

@@ -78,9 +78,9 @@ class DirectedRobertsFlores:
                 for k in range(num_lp):
                     if j == lp[i][k]:
                         if k == num_lp - 1:
-                            self.gm[i][j] = lp[i][k] + self.e
+                            self.gm[i][j] = lp[i][k] + self.v
                         else:
-                            self.gm[i][j] = lp[i][k + 1] + self.e
+                            self.gm[i][j] = lp[i][k + 1] + self.v
 
             for j in range(self.v):
                 for k in range(num_lb):
@@ -95,7 +95,7 @@ class DirectedRobertsFlores:
         visited += 1
 
         for i in range(self.v):
-            if 0 <= self.gm[v][i] <= self.v:
+            if 0 <= self.gm[v][i] < self.v:
                 if i == start and visited == self.v:
                     self.path.append(v)
                     return True
